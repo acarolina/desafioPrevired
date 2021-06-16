@@ -1,7 +1,6 @@
 package com.desafio.previred;
 
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -38,9 +37,9 @@ public class App{
     	
     	properties=cargarPropertie();  	
     	maximo= Integer.valueOf(properties.getProperty("maximo"));
-    	exportarCsv = new ExportarCsv(properties.getProperty("nombre.archivo"),properties.getProperty("filaUno"),properties.getProperty("filaDos"));
+    	exportarCsv = new ExportarCsv(properties.getProperty("nombre.archivo"),properties.getProperty("fila.uno"),properties.getProperty("fila.dos"));
     	Valores valores = new Valores();
-    	Ufs ufs= new Ufs();
+    	Ufs ufs;
     	
     	ufs=valores.getRango(); 
     	Set<Uf> setUf = ufs.getUfs();
