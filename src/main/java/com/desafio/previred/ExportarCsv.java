@@ -1,9 +1,8 @@
 package com.desafio.previred;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,9 +18,9 @@ public class ExportarCsv {
 	
 	private static final Logger log = Logger.getLogger( ExportarCsv.class.getName() );
 	private  SimpleDateFormat formatoFeha = new SimpleDateFormat("yyyy-MM-dd");
-	private String nombreArchivo;
-	private static String filaUno;
-	private static String filaDos;
+	private  String nombreArchivo;
+	private  String filaUno;
+	private  String filaDos;
 
 	public ExportarCsv(String nombreArchivo,String filaUno ,String filaDos) {
 		this.nombreArchivo=nombreArchivo;
@@ -33,16 +32,16 @@ public class ExportarCsv {
 	
 	private   String[] generarCabecera(Date fechaInicio,Date fechaFin) {
 		
-		String[] cabecera= {filaUno, formatoFeha.format(fechaInicio), formatoFeha.format(fechaFin)};
 		
-     	return cabecera; 
+		
+     	return new String[]{filaUno, formatoFeha.format(fechaInicio), formatoFeha.format(fechaFin)}; 
 
      }
 	
 	private    List<String[]> parseListToString(List<Uf> ufOrdenadas) {
 		
 		log.info("Metodo: parseListToString ");
-		List<String[]> listaDatos = new ArrayList<String[]>();
+		List<String[]> listaDatos = new ArrayList<>();
 		
 
 		for (Uf uf : ufOrdenadas) {
@@ -62,39 +61,24 @@ public class ExportarCsv {
 		 log.info("Metodo: generarArchivo ");
     	  File file = new File(nombreArchivo);
 
-    	try {
+ 
     		log.debug("ruta del Archivo: " + file.getAbsolutePath());
 
     	    // GENERA CABECERA
     	    String[] cabecera = generarCabecera(fechaInicio,fechaFin);
     	    List<String[]> ufs=parseListToString(ufOrdenadas);
-    	    FileWriter fileWrite= new FileWriter(nombreArchivo);
-    	    CSVWriter writer = new CSVWriter(fileWrite, ';');
-    	    
-    	    writer.writeNext(cabecera);
-    	    for (String[] fila : ufs) {
-    	    	writer.writeNext(fila);
+    	    try (CSVWriter writer = new CSVWriter(new OutputStreamWriter(new FileOutputStream(nombreArchivo)), ';')){
+    	    	 writer.writeNext(cabecera);
+    	    	    for (String[] fila : ufs) {
+    	    	    	writer.writeNext(fila);
+    	    	    }
+    	    	   
+    	    } catch (Exception e) {
+    	    	log.error(e.getMessage(), e);
+    	    	return null;
+
     	    }
-    	    fileWrite.close();
-    	    writer.close();
-    	    
-    	    
     	    log.info("Fin de generarArchivo");
-
-    	} catch (FileNotFoundException e) {
-    	    log.error(e.getMessage(), e);
-    	    return null;
-
-    	} catch (IOException e) {
-    	    log.error(e.getMessage(), e);
-    	    return null;
-    	} catch (Exception e) {
-    	    log.error(e.getMessage(), e);
-    	    return null;
-    	}finally {
-    	
-    	}
-    	
     	return file;
         }
 

@@ -28,14 +28,20 @@
     <version>2.8.7</version>
 	</dependency>
 
-    <dependency>
+     <!-- dependency>
          <groupId>Generador_Datos_Desafio_Tres-1.0.0</groupId>
          <artifactId>Generador_Datos_Desafio_Tres-1.0.0</artifactId>
          <scope>system</scope>
          <version>1.0</version>
-         <systemPath>${basedir}\src\lib\Generador_Datos_Desafio_Tres-1.0.0.jar</systemPath>
-      </dependency>
+        <systemPath>${basedir}\src\lib\Generador_Datos_Desafio_Tres-1.0.0.jar</systemPath>
+      </dependency> -->
  
+    <dependency>
+         <groupId>com.previred.desafio.tres</groupId>
+         <artifactId>Generador_Datos_Desafio_Tres</artifactId>
+         <version>1.0.0</version>
+      </dependency>
+      
       <dependency>
     <groupId>log4j</groupId>
     <artifactId>log4j</artifactId>

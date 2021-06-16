@@ -10,7 +10,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.apache.log4j.Category;
 import org.apache.log4j.Logger;
 import com.previred.desafio.tres.uf.DatosUf;
 import com.previred.desafio.tres.uf.tools.RandomDate;
@@ -23,23 +22,21 @@ public class CompletarValores {
 	 public  List<Uf> ordenarUf(Set<Uf> ufs){
 		 log.info("Metodo: ordenarUf ");
 		 Stream <Uf> stream =ufs.stream();
-		 List<Uf> listaUf= stream.sorted(Comparator.comparing(Uf::getFecha).reversed()).collect(Collectors.toList());
-		 return listaUf;
+		 return stream.sorted(Comparator.comparing(Uf::getFecha).reversed()).collect(Collectors.toList());
 		}
 
-	public  Set<Uf> getValoresfaltantes(int tamaño, Date fechaInicio, Date fechaFin) {
+	public  Set<Uf> getValoresfaltantes(int size, Date fechaInicio, Date fechaFin) {
 		
 		log.info("Metodo: getValoresfaltantes ");
 		LocalDate fechaInicioLocal = fechaInicio.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 	    LocalDate fechaFinLocal = fechaFin.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-	    Set<Uf> ufs = new HashSet<Uf>();
+	    Set<Uf> ufs = new HashSet<>();
 	    
 	    log.info("Metodo: getValoresfaltantes - generando fecha aleatoria ");
 	    log.debug("Rango de Fecha -  Fecha inicio: " + fechaInicioLocal + " Fecha Fin: "+ fechaFinLocal);	
 	    RandomDate randomDate= new RandomDate(fechaInicioLocal, fechaFinLocal);
 	   
-	    //System.out.println(tamaño + " \n");
-	    for (int i =0; i<tamaño; i++){
+	    for (int i =0; i<size; i++){
 	    	DatosUf datos= DatosUf.getInstance(); 
 	    	LocalDate fecha=randomDate.nextDate();
 	    	Date siguienteFecha = Date.from(fecha.atStartOfDay(ZoneId.systemDefault()).toInstant());
