@@ -14,6 +14,12 @@ import au.com.bytecode.opencsv.CSVWriter;
 
 import com.previred.desafio.tres.uf.vo.Uf;
 
+/**
+ * Clase mantiene lo relacionado a la generación del archivo de salida
+ * 
+ * @author ablanco
+ *
+ */
 public class ExportarCsv {
 	
 	private static final Logger log = Logger.getLogger( ExportarCsv.class.getName() );
@@ -29,7 +35,13 @@ public class ExportarCsv {
 	}
 
 
-	
+	/**
+	 * Se genera la primera fila del archivo
+	 * 
+	 * @param fechaInicio
+	 * @param fechaFin
+	 * @return
+	 */
 	private   String[] generarCabecera(Date fechaInicio,Date fechaFin) {
 		
 		
@@ -38,6 +50,13 @@ public class ExportarCsv {
 
      }
 	
+	/**
+	 * Metodo que convierte la lista lista de Uf a una lista de arreglo de String para
+	 *  escribirla en el archivo de salida
+	 * 
+	 * @param ufOrdenadas
+	 * @return
+	 */
 	private    List<String[]> parseListToString(List<Uf> ufOrdenadas) {
 		
 		log.info("Metodo: parseListToString ");
@@ -56,6 +75,14 @@ public class ExportarCsv {
 		return listaDatos;
 	}
 	
+	/**
+	 * Metodo que genera el archivo de salida .csv
+	 * 
+	 * @param ufOrdenadas
+	 * @param fechaInicio
+	 * @param fechaFin
+	 * @return
+	 */
 	public File generarArchivo(List<Uf> ufOrdenadas,Date fechaInicio, Date fechaFin) {
 		
 		 log.info("Metodo: generarArchivo ");
@@ -90,21 +117,36 @@ public class ExportarCsv {
 		this.nombreArchivo = nombreArchivo;
 	}
 
-	public String getColumna1() {
+
+	public SimpleDateFormat getFormatoFeha() {
+		return formatoFeha;
+	}
+
+
+	public void setFormatoFeha(SimpleDateFormat formatoFeha) {
+		this.formatoFeha = formatoFeha;
+	}
+
+
+	public String getFilaUno() {
 		return filaUno;
 	}
 
-	public void setColumna1(String columna1) {
-		this.filaUno = columna1;
+
+	public void setFilaUno(String filaUno) {
+		this.filaUno = filaUno;
 	}
 
-	public String getColumna2() {
+
+	public String getFilaDos() {
 		return filaDos;
 	}
 
-	public void setColumna2(String columna2) {
-		this.filaDos = columna2;
+
+	public void setFilaDos(String filaDos) {
+		this.filaDos = filaDos;
 	}
+
     
 	
 

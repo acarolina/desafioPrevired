@@ -15,13 +15,14 @@ import com.previred.desafio.tres.uf.vo.Ufs;
 
 
 /**
- * Hello world!
+ * Clase principal encarga de orquestar los metodo para la generacion del archivo de salida de la lista de UF
+ * @author ablanco
  *
  */
 public class App{
 	
     private static final Logger log = Logger.getLogger( App.class.getName() );
-    private static final String PROPERTIES_PATH="/config.properties";
+    private static final String PROPERTIES_PATH="config.properties";
 
 	
 	static CompletarValores completarValores = new CompletarValores();
@@ -47,21 +48,24 @@ public class App{
     	
     	int cantUfFaltantes=maximo-ufs.getUfs().size();
     	log.debug("Uf faltantes: " +cantUfFaltantes );
-    	
-        setUf.addAll(completarValores.getValoresfaltantes(cantUfFaltantes,ufs.getInicio(),ufs.getFin()));
-	    log.debug("Tamaño de ufs completada: " + setUf.size());
+    	completarValores.getValoresfaltantes(cantUfFaltantes,ufs.getInicio(),ufs.getFin(),setUf);
         List<Uf> ufOrdenados=completarValores.ordenarUf(setUf);
        
         exportarCsv.generarArchivo(ufOrdenados,ufs.getInicio(),ufs.getFin());
+        
+        log.info("Method: main - Fin de Aplicacion ");
            
     }
 
 
-
+    /**
+     * Carga la propiedades configurables del proyecto
+     * @return
+     */
 	public static Properties cargarPropertie() {
 		log.info("Method: cargarPropertie ");
 		properties  = new Properties();
-		InputStream inputStream = App.class.getResourceAsStream(PROPERTIES_PATH);
+		InputStream inputStream = App.class.getClassLoader().getResourceAsStream(PROPERTIES_PATH);
     	try {
 			properties.load(inputStream);
 		} catch (IOException e) {
