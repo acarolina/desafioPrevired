@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -44,12 +43,11 @@ public class CompletarValores {
      * @param setUf
      * @return setUf cuyo size es 100
      */
-	public  Set<Uf> getValoresfaltantes(int size, Date fechaInicio, Date fechaFin, Set<Uf> setUf) {
+	public void getValoresfaltantes(int size, Date fechaInicio, Date fechaFin, Set<Uf> setUf) {
 		
 		log.info("Metodo: getValoresfaltantes ");
 		LocalDate fechaInicioLocal = fechaInicio.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 	    LocalDate fechaFinLocal = fechaFin.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-	    Set<Uf> ufs = new HashSet<>();
 	    
 	    log.info("Metodo: getValoresfaltantes - generando fecha aleatoria ");
 	    log.debug("Rango de Fecha -  Fecha inicio: " + fechaInicioLocal + " Fecha Fin: "+ fechaFinLocal);	
@@ -74,7 +72,6 @@ public class CompletarValores {
 	    }
 	    log.debug("tamaño lista completada: " +setUf.size());
 	    log.info("Metodo: getValoresfaltantes - Ufs completados ");
-	    return ufs;
 	}
 
 }
